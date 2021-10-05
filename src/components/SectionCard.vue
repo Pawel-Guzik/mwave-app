@@ -1,11 +1,12 @@
 <template>
     <div class="card">
         <div class="card-image">
-            <p> image </p>
+            
         </div>
         <div class="card-text">
             <h1>Rectangular Waveguide</h1>
-            <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard </p>
+            <p> Cutoff frequency calculator  </p>
+            <button class="button">Calculate</button>
         </div>
         
     </div>
@@ -48,8 +49,26 @@ h1 {
     background: white;
     border-bottom-left-radius: 18px;
     border-bottom-right-radius: 18px;
-
     text-align: left;
     margin-left: 15px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.button {
+    background-color: #00488A;
+
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    position: relative;
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    top: 10px;
+    bottom: 25px;
+    left: 310px;
 }
 </style>

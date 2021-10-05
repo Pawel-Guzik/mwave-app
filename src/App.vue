@@ -1,26 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header-element></header-element>
+  <section-card></section-card>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderElement from './components/HeaderElement.vue';
+import SectionCard from './components/SectionCard.vue';
+
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  components: { HeaderElement, SectionCard },
+  data() {
+    return {
+      name: 'Pawel',
+    }
+
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+    background: #E5E5E5;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    color: black;
 }
 </style>

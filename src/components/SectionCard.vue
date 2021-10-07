@@ -4,8 +4,8 @@
             
         </div>
         <div class="card-text">
-            <h1>Rectangular Waveguide</h1>
-            <p> Cutoff frequency calculator  </p>
+            <h1> {{ title }} </h1>
+            <p> {{ description }} </p>
             <button class="button">Calculate</button>
         </div>
         
@@ -13,14 +13,26 @@
 </template>
 
 
+<script>
+
+
+export default {
+    props: [
+        'title',
+        'description'
+    ]
+}
+</script>
+
+
 
 <style scoped>
 .card {
     color: #00488A;
-    width: 450px;
+    width: 400px;
     display: grid;
-    grid-template-columns: 450px;
-    grid-template-rows: 200px 150px;
+    grid-template-columns: 400px;
+    grid-template-rows: 200px 100px;
     grid-template-areas: "image" "text";
 
     border-radius: 18px;
@@ -38,11 +50,12 @@
 
 p {
     color: black;
-    font-weight: 600;
-    /* size: 14px; */
+    /* font-weight: 600; */
+    font-size: 15px;
 }
 h1 {
-    font-size:24px;
+    margin-top: 6px;
+    font-size:20px;
 }
 .card-text {
     grid-area: text;
@@ -52,6 +65,7 @@ h1 {
     text-align: left;
     margin-left: 15px;
     font-family: 'Montserrat', sans-serif;
+    padding-bottom: 10px;
 }
 
 .button {
@@ -69,6 +83,11 @@ h1 {
     height: 30px;
     top: 10px;
     bottom: 25px;
-    left: 310px;
+    left: 270px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
 }
 </style>

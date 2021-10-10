@@ -1,7 +1,7 @@
 <template>
   <header-element></header-element>
   <div class="wrapper">
-    <section-card
+    <!-- <section-card
       title="Rectangular Waveguide"
       description="Cutoff frequency calculations"
     ></section-card>
@@ -28,19 +28,15 @@
     <section-card
       title="L-section network"
       description="Impedance Matching - L-section network"
-    ></section-card>
+    ></section-card> -->
+    <router-view> </router-view>
   </div>
 </template>
 
 
 <script>
-import HeaderElement from './components/HeaderElement.vue';
-import SectionCard from './components/SectionCard.vue';
-
-
-
 export default {
-  components: { HeaderElement, SectionCard },
+  // components: { HeaderElement, SectionCard },
   data() {
     return {
       name: 'Pawel',
@@ -59,20 +55,7 @@ body {
     /* overflow-x: hidden;  */
 }
 
-.wrapper {
-  width: 100%;
-  max-width: 1280px;
-  margin: auto;
-  padding-bottom: 30px;
-  padding-top: 30px;
 
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: space-between; */
-  justify-content: space-between;
-  /* column-gap: 30px; */
-  row-gap: 40px;
-}
 
 * {
   margin: 0;

@@ -6,7 +6,8 @@
         <div class="card-text">
             <h1> {{ title }} </h1>
             <p> {{ description }} </p>
-            <button class="button">Calculate</button>
+            <!-- <button class="button">Calculate</button> -->
+            <router-link :to=direction> Calculate </router-link>
         </div>
         
     </div>
@@ -19,7 +20,8 @@
 export default {
     props: [
         'title',
-        'description'
+        'description',
+        'direction'
     ]
 }
 </script>

@@ -180,6 +180,7 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   display: flex;
   /* justify-content: space-between; */
   column-gap: 30px;
+  align-items: center;
 }
 
 .output-section {
@@ -189,6 +190,12 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   grid-template-columns: 220px 220px 220px;
   font-size: 18px;
   column-gap: 20px;
+  row-gap: 30px;
+
+}
+
+.output-section > div > p {
+  padding: 5px;
 }
 
 .button {
@@ -254,6 +261,20 @@ input {
 .message-error{
   font-weight: 600;
   color: red;
+  display: block;
+  height: 15px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 </style>

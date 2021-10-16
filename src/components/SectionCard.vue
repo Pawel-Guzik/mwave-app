@@ -7,7 +7,7 @@
             <h1> {{ title }} </h1>
             <p> {{ description }} </p>
             <!-- <button class="button">Calculate</button> -->
-            <router-link :to=direction> Calculate </router-link>
+            <router-link :to=direction><button class="button" id="calculate"> Calculate </button></router-link>
         </div>
         
     </div>
@@ -86,6 +86,19 @@ h1 {
     top: 10px;
     bottom: 25px;
     left: 270px;
+    border: none;
+}
+
+#calculate {
+  color: white;
+  background-color: #00488A;
+}
+
+#calculate:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  background-color: #E5E5E5;
+  color: #00488A;
 }
 
 * {

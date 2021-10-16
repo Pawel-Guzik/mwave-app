@@ -1,9 +1,9 @@
-
-
-
 <template>
+  <div class=all-wraper>
+    <div class="header-navigation">
+      <router-link to="/"><img src="../assets/back2.svg"></router-link>
+    </div>
     <div class="wrapper">
-      
       <div class="image">
         <img src="../assets/atom.svg">
       </div>
@@ -44,6 +44,7 @@
         <p class="message-error"> {{messageError}} </p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -154,12 +155,20 @@ function calculate_specific_frequency(a,b,ep,n,m) {
 
 
 <style scoped>
+
+.all-wraper {
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
 .wrapper {
   width: 100%;
   max-width: 1280px;
   margin: auto;
   padding-bottom: 30px;
-  padding-top: 300px;
+  /* padding-top:50px; */
+  /* padding-top: 300px; */
 
   display: grid;
   grid-template-columns: 500px 780px;
@@ -167,6 +176,12 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   grid-template-areas: "image" "calculations";
 }
 
+.header-navigation {
+  /* padding-top:300px; */
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+}
 
 .calculate-section {
     grid-area: "calculations";
@@ -236,6 +251,7 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   transform: scale(0.98);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
+
 .buttons-section {
   padding-top: 50px;
   padding-bottom: 50px;

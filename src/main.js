@@ -5,6 +5,7 @@ import App from './App.vue'
 
 import RectangularWaveguide from './components/RectangularWaveguide.vue';
 import MicrostripLine from './components/MicrostripLine.vue';
+import VswrCalculation from './components/VswrCalculation.vue';
 import MenuView from './components/MenuView.vue';
 
 const router = createRouter({
@@ -13,6 +14,7 @@ const router = createRouter({
       { path: '/', component: MenuView},
       { path: '/rectangularwaveguide', component: RectangularWaveguide },
       { path: '/microstripline', component: MicrostripLine },
+      { path: '/vswrcalculation', component: VswrCalculation },
     ]
   });
 

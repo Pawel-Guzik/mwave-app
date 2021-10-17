@@ -16,7 +16,11 @@
           description="Different VSWR parameters calculations"
           direction="/vswrcalculation"
         ></section-card>
-        
+        <section-card
+          title="Load Impedance"
+          description="Load impedance calculations"
+          direction="/loadimpedance"
+        ></section-card>
         <!-- <section-card
         title="Load Impedance"
         description="Load impedance calculations"

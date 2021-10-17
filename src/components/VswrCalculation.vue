@@ -29,6 +29,7 @@
                     <p> </p>
                     <p> arg(G) = </p>
                     <p>{{g_arg}} </p>
+                    <p style="text-align: left;"> deg </p>
                 </div>
                 <div class="output-section">
                     <input type="radio" name="select" value="Re(G)" v-model="checked">
@@ -78,6 +79,7 @@
                         <button id="reset" class="button" v-on:click="reset"> Reset </button>
                     </div>
                 </div>
+                <p class="message-error"> {{messageError}} </p>
             </div>
         </div>
     </div>
@@ -121,17 +123,141 @@ export default {
         first_value: '',
         second_value: '',
 
-        Zo: '50'
+        Zo: '50',
+
+        messageError: '',
       };
     },
     methods: {
         calculate() {
-            console.log(this.checked)
+            this.messageError = ''
+            if (this.Zo <= 0) {
+                this.messageError = create_error_message(this.messageError, 'Zo > 0') 
+            }
             let result = []
-            this.vswr = this.first_value
-            this.vswr_arg = this.second_value
-            result = calculate_on_VSWR(this.vswr, this.vswr_arg, this.Zo)
-            this.write_output(result)
+            if (this.checked == 'VSWR') {
+                this.first_value //vswr
+                this.second_value //vswr_arg
+
+                if(this.second_value == ''){
+                    this.second_value = 0
+                }
+
+                if (this.first_value < 1){
+                    this.messageError = create_error_message(this.messageError, 'VSWR >= 1')
+                }
+
+                if (this.first_value >= 1 && this.Zo > 0){
+                    result = calculate_on_VSWR(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == '|G|') {
+                this.first_value // g_module
+                this.second_value //g_arg
+                console.log(this.first_value)
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (this.first_value < 0 || this.first_value > 1) {
+                    this.messageError = create_error_message(this.messageError, '0 <= |G| <= 1')
+                }
+                if (this.first_value >= 0 && this.first_value <=1 && this.Zo > 0) {
+                    result = calculate_on_g_module(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == 'Re(G)'){
+                this.first_value // re_g
+                this.second_value //im_g
+                let g_module = g_complex_to_g_module(this.first_value, this.second_value)
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (g_module > 1) {
+                    this.messageError = create_error_message(this.messageError, '|G| <= 1, correct input values')
+                }
+                if (g_module <= 1 && this.Zo > 0) {
+                    result = calculate_on_g_complex(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == 'r'){
+                this.first_value // r_normalized
+                this.second_value //jx_normalized
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (this.first_value < 0) {
+                    this.messageError = create_error_message(this.messageError, 'r >= 0')
+                }
+                if (this.first_value >= 0 && this.Zo > 0) {
+                    result = calculate_on_r(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == 'g'){
+                this.first_value // g_normalized
+                this.second_value //jb_normalized
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (this.first_value < 0) {
+                    this.messageError = create_error_message(this.messageError, 'g >= 0')
+                }
+                if (this.first_value >= 0 && this.Zo > 0) {
+                    result = calculate_on_g(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == 'R'){
+                this.first_value // R
+                this.second_value // jX
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (this.first_value < 0) {
+                    this.messageError = create_error_message(this.messageError, 'R >= 0')
+                }
+                if (this.first_value >= 0 && this.Zo > 0) {
+                    result = calculate_on_R(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+            if (this.checked == 'G'){
+                this.first_value // G
+                this.second_value // jB
+                if (this.second_value == '') {
+                    this.second_value = 0
+                }
+                if (this.first_value == '') {
+                    this.first_value = 0
+                }
+                if (this.first_value < 0) {
+                    this.messageError = create_error_message(this.messageError, 'R >= 0')
+                }
+                if (this.first_value >= 0 && this.Zo > 0) {
+                    result = calculate_on_G(this.first_value, this.second_value, this.Zo)
+                    this.write_output(result)
+                }
+            }
+
+
         },
 
 
@@ -152,12 +278,29 @@ export default {
             this.jX = Math.round(result[5].im*round_val)/round_val
             this.G = Math.round(result[6].re*round_val)/round_val
             this.jB = Math.round(result[6].im*round_val)/round_val
+        },
+
+        clear_values() {
+            this.vswr = this.vswr_arg = ''
+            this.g_module = this.g_arg = ''
+            this.re_g = this.im_g = ''
+            this.r_normalized = this.jx_normalized = ''
+            this.g_normalized = this.jb_normalized = ''
+            this.R = this.jX = ''
+            this.G = this.jB = ''
         }
+
+        
+        
         
     },
     watch: {
         checked(value) {
-            console.log(value)
+            this.clear_values()
+            this.first_value = ''
+            this.second_value = ''
+            this.first_unit = ''
+            this.second_unit = ''
             if (value == "VSWR") {
                 this.first_parameter = 'VSWR ='
                 this.second_parameter = 'arg(G) ='
@@ -192,19 +335,34 @@ export default {
                 this.first_unit = "S"
                 this.second_unit = "S"
             }
+        },
+        messageError(value){
+            if (value != '') {
+                this.clear_values()
+            }
         }
+
     }
 }
 
-
+function create_error_message (current_message, additional_text) {
+  if (current_message == '') {
+    return 'Set ' + additional_text
+  }
+  if (current_message != '') {
+    return current_message + ' & ' + additional_text
+  }
+}
 function calculate_arg(arg) {
-    return arg*Math.PI/180
+    return arg*Math.PI/180 // conversion to radians
+}
+
+function g_complex_to_g_module(re_g, im_g) {
+    return Math.sqrt(re_g*re_g +im_g*im_g)
 }
 function calculate_on_VSWR(VSWR, arg, Zo) {
-
     let arg_used = calculate_arg(arg)
     let g_module = (VSWR - 1) / (VSWR + 1)
-
     let g_complex = math.complex(g_module*Math.cos(arg_used), g_module*Math.sin(arg_used))
     let R = math.multiply(math.divide(math.add(g_complex, 1),math.add(g_complex, -1)),-Zo)
     let G = math.divide(1, R)
@@ -212,6 +370,80 @@ function calculate_on_VSWR(VSWR, arg, Zo) {
     let g = math.divide(G, (1/Zo))
     console.log(g_complex, R, G, r, g)
     return [VSWR, g_module, g_complex, r, g, R, G, arg]
+}
+
+function calculate_on_g_module(g_module, g_arg, Zo){
+    let arg_used = calculate_arg(g_arg)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_complex = math.complex(g_module*Math.cos(arg_used), g_module*Math.sin(arg_used))
+    let R = math.multiply(math.divide(math.add(g_complex, 1),math.add(g_complex, -1)),-Zo)
+    let G = math.divide(1, R)
+    let r = math.divide(R, Zo)
+    let g = math.divide(G, (1/Zo))
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
+}
+
+
+function calculate_on_g_complex(re_g, im_g, Zo) {
+    let g_module = g_complex_to_g_module(re_g, im_g)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_complex = math.complex(re_g, im_g)
+    let R = math.multiply(math.divide(math.add(g_complex, 1),math.add(g_complex, -1)),-Zo)
+    let G = math.divide(1, R)
+    let r = math.divide(R, Zo)
+    let g = math.divide(G, (1/Zo))
+    console.log(g_complex.toVector())
+    let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
+}
+
+
+function calculate_on_r(r_normalized, jx_normalized, Zo) {
+    let r = math.complex(r_normalized, jx_normalized)
+    let R = math.multiply(r, Zo)
+    let G = math.divide(1, R)
+    let g = math.divide(G, (1/Zo)) 
+    let g_complex = math.divide(math.add(R,-Zo),math.add(R, Zo))
+    let g_module = g_complex_to_g_module(g_complex.re, g_complex.im)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
+}
+
+function calculate_on_g(g_normalized, jb_normalized, Zo) {
+    let g = math.complex(g_normalized, jb_normalized)
+    let G = math.multiply(g, (1/Zo))
+    let R = math.divide(1, G)
+    let r = math.divide(R, Zo)
+    let g_complex = math.divide(math.add(R,-Zo),math.add(R, Zo))
+    let g_module = g_complex_to_g_module(g_complex.re, g_complex.im)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees  
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
+}
+
+function calculate_on_R(R_in, jX, Zo) {
+    let R = math.complex(R_in, jX)
+    let G = math.divide(1, R)
+    let r = math.divide(R, Zo)
+    let g = math.divide(G, (1/Zo)) 
+    let g_complex = math.divide(math.add(R,-Zo),math.add(R, Zo))
+    let g_module = g_complex_to_g_module(g_complex.re, g_complex.im)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees 
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
+}
+
+function calculate_on_G(G_in, jB, Zo) {
+    let G = math.complex(G_in, jB)
+    let R = math.divide(1, G)
+    let r = math.divide(R, Zo)
+    let g = math.divide(G, (1/Zo)) 
+    let g_complex = math.divide(math.add(R,-Zo),math.add(R, Zo))
+    let g_module = g_complex_to_g_module(g_complex.re, g_complex.im)
+    let VSWR = (1+g_module)/(1-g_module)
+    let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees 
+    return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
 }
 </script>
 
@@ -229,6 +461,13 @@ function calculate_on_VSWR(VSWR, arg, Zo) {
   width: 100%;
   max-width: 1280px;
   margin: auto;
+}
+
+.message-error{
+  font-weight: 600;
+  color: red;
+  display: block;
+  height: 15px;
 }
 
 .wrapper {

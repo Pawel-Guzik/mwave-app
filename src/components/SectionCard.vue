@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-image">
-            
+            <!-- <img src="../assets/load.svg"> -->
         </div>
         <div class="card-text">
             <h1> {{ title }} </h1>

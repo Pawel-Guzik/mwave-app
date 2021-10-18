@@ -8,6 +8,7 @@
                 <img src="../assets/atom.svg">
             </div>
             <div class="calculate-section">
+                
                 <div class="inputs-section">
                     <p> {{first_parameter}} <input type="number" v-model.number="first_value"> {{first_unit}} </p>
                     <p> {{second_parameter}} <input type="number" v-model.number="second_value"> {{second_unit}} </p>
@@ -73,6 +74,7 @@
                     <p>{{jB}} </p>
                     <p style="text-align: left;"> S </p>
                 </div>
+                
                 <div class="buttons-section">
                     <div class="buttons">
                         <button id="calculate" class="button" v-on:click="calculate"> Calculate </button>
@@ -159,13 +161,10 @@ export default {
                 if (this.second_value == '') {
                     this.second_value = 0
                 }
-                if (this.first_value == '') {
-                    this.first_value = 0
-                }
-                if (this.first_value < 0 || this.first_value > 1) {
+                if ((this.first_value < 0 || this.first_value > 1) || this.first_value == '') {
                     this.messageError = create_error_message(this.messageError, '0 <= |G| <= 1')
                 }
-                if (this.first_value >= 0 && this.first_value <=1 && this.Zo > 0) {
+                if (this.first_value >= 0 && this.first_value <=1 && this.Zo > 0 && this.first_value != '') {
                     result = calculate_on_g_module(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -175,15 +174,15 @@ export default {
                 this.second_value //im_g
                 let g_module = g_complex_to_g_module(this.first_value, this.second_value)
                 if (this.second_value == '') {
-                    this.second_value = 0
+                    this.messageError = create_error_message(this.messageError, 'Im(G)')
                 }
                 if (this.first_value == '') {
-                    this.first_value = 0
+                    this.messageError = create_error_message(this.messageError, 'Re(G)')
                 }
                 if (g_module > 1) {
-                    this.messageError = create_error_message(this.messageError, '|G| <= 1, correct input values')
+                    this.messageError = create_error_message(this.messageError, '|G| <= 1 (correct Re & Im)')
                 }
-                if (g_module <= 1 && this.Zo > 0) {
+                if (g_module <= 1 && this.Zo > 0 && this.first_value != '' && this.second_value != '') {
                     result = calculate_on_g_complex(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -192,15 +191,15 @@ export default {
                 this.first_value // r_normalized
                 this.second_value //jx_normalized
                 if (this.second_value == '') {
-                    this.second_value = 0
+                    this.messageError = create_error_message(this.messageError, 'jx')
                 }
                 if (this.first_value == '') {
-                    this.first_value = 0
+                    this.messageError = create_error_message(this.messageError, 'r')
                 }
                 if (this.first_value < 0) {
                     this.messageError = create_error_message(this.messageError, 'r >= 0')
                 }
-                if (this.first_value >= 0 && this.Zo > 0) {
+                if (this.first_value >= 0 && this.Zo > 0 && this.first_value != '' && this.second_value != '') {
                     result = calculate_on_r(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -209,15 +208,15 @@ export default {
                 this.first_value // g_normalized
                 this.second_value //jb_normalized
                 if (this.second_value == '') {
-                    this.second_value = 0
+                    this.messageError = create_error_message(this.messageError, 'jb')
                 }
                 if (this.first_value == '') {
-                    this.first_value = 0
+                    this.messageError = create_error_message(this.messageError, 'g')
                 }
                 if (this.first_value < 0) {
                     this.messageError = create_error_message(this.messageError, 'g >= 0')
                 }
-                if (this.first_value >= 0 && this.Zo > 0) {
+                if (this.first_value >= 0 && this.Zo > 0 && this.first_value != '' && this.second_value != '') {
                     result = calculate_on_g(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -226,15 +225,15 @@ export default {
                 this.first_value // R
                 this.second_value // jX
                 if (this.second_value == '') {
-                    this.second_value = 0
+                    this.messageError = create_error_message(this.messageError, 'jX')
                 }
                 if (this.first_value == '') {
-                    this.first_value = 0
+                    this.messageError = create_error_message(this.messageError, 'R')
                 }
                 if (this.first_value < 0) {
                     this.messageError = create_error_message(this.messageError, 'R >= 0')
                 }
-                if (this.first_value >= 0 && this.Zo > 0) {
+                if (this.first_value >= 0 && this.Zo > 0 && this.first_value != '' && this.second_value != '') {
                     result = calculate_on_R(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -243,15 +242,15 @@ export default {
                 this.first_value // G
                 this.second_value // jB
                 if (this.second_value == '') {
-                    this.second_value = 0
+                    this.messageError = create_error_message(this.messageError, 'jB')
                 }
                 if (this.first_value == '') {
-                    this.first_value = 0
+                    this.messageError = create_error_message(this.messageError, 'G')
                 }
                 if (this.first_value < 0) {
                     this.messageError = create_error_message(this.messageError, 'R >= 0')
                 }
-                if (this.first_value >= 0 && this.Zo > 0) {
+                if (this.first_value >= 0 && this.Zo > 0 && this.first_value != '' && this.second_value != '') {
                     result = calculate_on_G(this.first_value, this.second_value, this.Zo)
                     this.write_output(result)
                 }
@@ -259,9 +258,6 @@ export default {
 
 
         },
-
-
-
 
         write_output(result) {
             let round_val = 1000000
@@ -288,8 +284,14 @@ export default {
             this.g_normalized = this.jb_normalized = ''
             this.R = this.jX = ''
             this.G = this.jB = ''
-        }
+        },
 
+        reset(){
+            console.log('reset')
+            this.clear_values()
+            this.first_value = ''
+            this.second_value = ''
+        },
         
         
         
@@ -470,6 +472,7 @@ function calculate_on_G(G_in, jB, Zo) {
   height: 15px;
 }
 
+
 .wrapper {
   width: 100%;
   max-width: 1280px;
@@ -503,6 +506,7 @@ function calculate_on_G(G_in, jB, Zo) {
     justify-content: center;
     flex-direction: column;
     margin-left: 60px;
+    /* align-items: center; */
 }
 
 input {

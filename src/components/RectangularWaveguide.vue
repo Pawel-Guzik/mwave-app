@@ -8,6 +8,7 @@
         <img src="../assets/atom.svg">
       </div>
       <div class="calculate-section">
+        
         <div class="inputs-section">
           <p> a = <input type="number" step="0.01" v-model.number="a"> mm </p>
           <p> b = <input type="number" step="0.01" v-model.number="b"> mm </p>
@@ -35,6 +36,7 @@
           <p> n = <input input type="number" v-model.number="n"> </p>
           <p> {{frequency}} = {{specific_result}} GHz </p>
         </div>
+        
         <div class="buttons-section">
           <div class="buttons">
             <button id="calculate" class="button" v-on:click="calculate"> Calculate </button>
@@ -167,12 +169,9 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   max-width: 1280px;
   margin: auto;
   padding-bottom: 30px;
-  /* padding-top:50px; */
-  /* padding-top: 300px; */
 
   display: grid;
   grid-template-columns: 500px 780px;
-  /* grid-template-rows: 200px 100px; */
   grid-template-areas: "image" "calculations";
 }
 
@@ -202,7 +201,7 @@ function calculate_specific_frequency(a,b,ep,n,m) {
   padding-top: 50px;
   padding-bottom: 50px;
   display: grid;
-  grid-template-columns: 220px 220px 220px;
+  grid-template-columns: 240px 240px 240px;
   font-size: 18px;
   column-gap: 20px;
   row-gap: 30px;

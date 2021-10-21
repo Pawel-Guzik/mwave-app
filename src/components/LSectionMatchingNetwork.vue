@@ -69,7 +69,8 @@
   
 }
 .output-text{
-    padding-left: 50px;
+    padding-left: 35px;
+    font-size: 18px;
 }
 .solution {
     display: flex;

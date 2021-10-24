@@ -1,3 +1,5 @@
+// za duze liczby, obsługa błędów
+
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
@@ -23,7 +25,7 @@
         </div>
         <div class="output-section">
             <p v-if="this.section == 'analysis'"> Z<sub>0</sub> = {{Zo_output}} Ω</p>
-            <p v-if="this.section == 'synthesis'"> W = 24.412 mm</p>
+            <p v-if="this.section == 'synthesis'"> W = {{w_output}} mm</p>
             <p> Eps<sub>eff</sub> = {{eps_eff}} </p>
             <p> λ = {{lambda}} mm </p>
         </div>
@@ -52,6 +54,7 @@ export default {
         Zo_output: '',
         eps_eff: '',
         lambda: '',
+        w_output: '',
 
         section: "analysis",
         messageError: ''
@@ -87,9 +90,10 @@ export default {
             if (this.Zo <= 0){
                 this.messageError = create_error_message(this.messageError, 'Zo > 0')
             }
-            // if (this.h > 0 && this.frequency > 0 && this.eps_r >=1 && this.Zo > 0){
-
-            // }
+            if (this.h > 0 && this.frequency > 0 && this.eps_r >=1 && this.Zo > 0){
+                result = synthesis(this.h, this.frequency, this.eps_r, this.Zo)
+                this.write_otuput(result)
+            }
         }
       },
 
@@ -105,16 +109,23 @@ export default {
         this.w = ''
         this.frequency = ''
         this.Zo = ''
+        this.w_output = ''
 
 
       },
       write_otuput(result) {
+        let round_val = 1000000
+        this.eps_eff = Math.round(result[1] * round_val)/round_val
+        this.lambda = Math.round(result[2]*1000 * round_val)/round_val
         if (this.section == "analysis") {
-            let round_val = 1000000
             this.Zo_output = Math.round(result[0] * round_val)/round_val
-            this.eps_eff = Math.round(result[1] * round_val)/round_val
-            this.lambda = Math.round(result[2]*1000 * round_val)/round_val
         }
+        if (this.section == "synthesis") {
+            this.w_output = Math.round(result[0] * round_val)/round_val
+        }
+        // if (this.section != "synthesis") {
+        //     this.eps_r
+        //   }
       },
       analysis() {
           if (this.section != "analysis") {
@@ -167,7 +178,44 @@ function synthesis(h, frequency, eps_r, Zo){
     let a = (Zo/60)*Math.sqrt((eps_r+1)/2) + ((eps_r-1)/(eps_r+1))*(0.23 + 0.11/eps_r)
     let b = (377*Math.PI)/(2*Zo*Math.sqrt(eps_r))
     let wd_1 = (8 * Math.exp(a)) / (Math.exp(2*a) - 2)
-    let eps_eff = (eps_r + 1) / 2 + (eps_r - 1) / (2 * Math.sqrt(1 + 12 * (1 / wd_1)))
+    let wd_2 = (2 / Math.PI) * (b - 1 - Math.log(2*b - 1) + ((eps_r - 1) / (2 * eps_r)) * (Math.log(b - 1) + 0.39 - (0.61 / eps_r)))
+    console.log(isNaN(wd_1))
+    console.log(isNaN(wd_2))
+    let w1 = wd_1 * h
+    let w2 = wd_2 * h
+    let eps_eff_1 = (eps_r + 1) / 2 + (eps_r - 1) / (2 * Math.sqrt(1 + 12 * (1 / wd_1)))
+    let eps_eff_2 = (eps_r + 1) / 2 + (eps_r - 1) / (2 * Math.sqrt(1 + 12 * (1 / wd_2)))
+    let lambda_1 = (3 * 10 ** 8) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_1))
+    let lambda_2 = (3 * 10 ** 8) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_2))
+    let correct_width = select_correct_width(w1, w2, Zo, h, frequency, eps_r)
+    if (correct_width == w1){
+      return [w1, eps_eff_1, lambda_1]
+    } else {
+      return [w2, eps_eff_2, lambda_2]
+    }
+    
+}
+
+function select_correct_width(w1, w2, Zo, h ,frequency, eps_r) {
+  console.log(w1)
+  console.log(w2)
+  if (w1 < 0){
+    return w2
+  }
+  if(w2 < 0) {
+    return w1
+  }
+
+  let Zo_w1 = analysis(h, frequency, eps_r, w1)[0]
+  let Zo_w2 = analysis(h, frequency, eps_r, w2)[0]
+
+  let first_option_diff = Math.abs(Zo_w1 - Zo)
+  let second_option_diff = Math.abs(Zo_w2 - Zo)
+  if (first_option_diff > second_option_diff){
+    return w2
+  } else {
+    return w1
+  }
 }
 </script>
 

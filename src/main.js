@@ -9,6 +9,7 @@ import VswrCalculation from './components/VswrCalculation.vue';
 import LoadImpedance from './components/LoadImpedance.vue';
 import LSectionMatchingNetwork from './components/LSectionMatchingNetwork.vue'
 import MenuView from './components/MenuView.vue';
+import ImpedanceTransformation from './components/ImpedanceTransformation.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -19,6 +20,7 @@ const router = createRouter({
       { path: '/vswrcalculation', component: VswrCalculation },
       { path: '/loadimpedance', component: LoadImpedance },
       { path: '/lsection', component: LSectionMatchingNetwork},
+      { path: '/impedancetransformation', component: ImpedanceTransformation},
       
     ]
   });

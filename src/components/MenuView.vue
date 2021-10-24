@@ -26,6 +26,11 @@
         description="Impedance Matching - L-section network"
         direction="/lsection"
         ></section-card>
+        <section-card
+        title="Impedance Transformation"
+        description="Calculate impedance toward generator or load"
+        direction="/impedancetransformation"
+        ></section-card>
         <!-- <section-card
         title="Load Impedance"
         description="Load impedance calculations"

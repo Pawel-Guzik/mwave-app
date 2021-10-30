@@ -1,11 +1,11 @@
 <template>
     <div class="all-wraper">
         <div class="header-navigation">
-            <router-link to="/"><img src="../assets/back2.svg"></router-link>
+            <router-link to="/"><img src="../assets/back.svg"></router-link>
         </div>
         <div class="wrapper">
             <div class="image">
-                <img src="../assets/atom.svg">
+                <img src="../assets/vswr.svg">
             </div>
             <div class="calculate-section">
                 
@@ -458,11 +458,22 @@ function calculate_on_G(G_in, jB, Zo) {
   display: flex;
   flex-direction: column;
 }
+
 .header-navigation {
   /* padding-top:300px; */
   width: 100%;
   max-width: 1280px;
   margin: auto;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img{
+  width: 500px
 }
 
 .message-error{

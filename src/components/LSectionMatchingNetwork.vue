@@ -3,11 +3,11 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back2.svg"></router-link>
+      <router-link to="/"><img src="../assets/back.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
-        <img src="../assets/atom.svg">
+        <img src="../assets/LSection.svg">
       </div>
       <div class="calculate-section">
 
@@ -23,14 +23,14 @@
         <div class="central-class">
             <div class="output-section">
                 <div class="solution">
-                    <img src="../assets/atom.svg">
+                    <img src="../assets/LS_2.svg" style="margin-bottom: 20px;">
                     <p class="output-text"> X<sub>1</sub> = {{X1}} Ω </p>
                     <p class="output-text"> B<sub>1</sub> = {{B1}} mS </p>
                     <p class="output-text"> C<sub>p</sub> = {{Cp}} pF </p>
                     <p class="output-text"> L<sub>s</sub> = {{Ls}} nH </p>
                 </div>
                 <div class="solution">
-                    <img src="../assets/atom.svg">
+                    <img src="../assets/LS_1.svg" style="margin-bottom: 18px; margin-top: 3px;">
                     <p class="output-text"> X<sub>2</sub> = {{X2}} Ω </p>
                     <p class="output-text"> B<sub>2</sub> = {{B2}} mS </p>
                     <p class="output-text"> C<sub>s</sub> = {{Cs}} pF </p>
@@ -169,6 +169,16 @@ function lc_calculate(X, frequency){
   /* flex-wrap: wrap; */
 }
 
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img{
+    width: 500px
+}
+
 .wrapper {
   width: 100%;
   max-width: 1280px;
@@ -183,6 +193,8 @@ function lc_calculate(X, frequency){
 .output-text{
     /* padding-left: 35px; */
     font-size: 18px;
+    margin: 3px;
+
 }
 .solution {
     display: flex;
@@ -224,7 +236,7 @@ function lc_calculate(X, frequency){
 
 .output-section {
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 300px 300px;
   column-gap: 70px;
   align-items: center;
   text-align: left;

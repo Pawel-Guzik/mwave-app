@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-image">
-            <!-- <img src="../assets/load.svg"> -->
+            <img v-bind:src="require(`@/assets/${image}`)">
         </div>
         <div class="card-text">
             <h1> {{ title }} </h1>
@@ -21,8 +21,9 @@ export default {
     props: [
         'title',
         'description',
-        'direction'
-    ]
+        'direction',
+        'image',
+    ],
 }
 </script>
 
@@ -43,9 +44,22 @@ export default {
     text-align: center;
 }
 
+img {
+    /* width: 50px; */
+    /* height: 170px; */
+    max-width:100%;
+    max-height:100%;
+    height: 170px;
+}
+
 .card-image {
     grid-area: image;
+    display: flex;
+    /* align-content: center; */
+    align-items: center;
+    justify-content: center;
     background: wheat;
+    padding: 5px;
     border-top-right-radius: 18px;
     border-top-left-radius: 18px;
 }
@@ -105,4 +119,5 @@ h1 {
   margin: 0;
   padding: 0;
 }
+
 </style>

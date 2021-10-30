@@ -3,11 +3,11 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back2.svg"></router-link>
+      <router-link to="/"><img src="../assets/back.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
-        <img src="../assets/atom.svg">
+        <img src="../assets/microstrip.svg">
       </div>
       <div class="calculate-section">
         <div class="inputs-section" style="padding-bottom: 40px;">
@@ -225,6 +225,16 @@ function select_correct_width(w1, w2, Zo, h ,frequency, eps_r) {
   padding-top: 80px;
   display: flex;
   flex-direction: column;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img{
+  width: 500px
 }
 
 .wrapper {

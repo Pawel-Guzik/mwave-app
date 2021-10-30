@@ -1,11 +1,11 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back2.svg"></router-link>
+      <router-link to="/"><img src="../assets/back.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
-        <img src="../assets/atom.svg">
+        <img src="../assets/transformation.svg">
       </div>
       <div class="calculate-section">
         <div class="inputs-section">
@@ -146,6 +146,16 @@ function calculate(lambda, R, distance, X){
   display: grid;
   grid-template-columns: 500px 780px;
   grid-template-areas: "image" "calculations";
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img{
+  width: 500px
 }
 
 .header-navigation {

@@ -64,7 +64,7 @@ export default {
         if (this.lambda <= 0) {
             this.messageError = create_error_message(this.messageError, 'λ > 0')
         }
-        if (this.R < 0 || this.R == '') {
+        if (this.R < 0 || this.R.length == 0) {
             this.messageError = create_error_message(this.messageError, 'R >= 0')
         }
         if (this.distance < 0 || this.distance == ''){

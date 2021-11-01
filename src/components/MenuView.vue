@@ -37,27 +37,12 @@
         direction="/impedancetransformation"
         image="transformation.svg"
         ></section-card>
-        <!-- <section-card
-        title="Load Impedance"
-        description="Load impedance calculations"
-        ></section-card>
-        <section-card
-        title="Impedance Transformation"
-        description="Calculate impedance toward generator or load"
-        ></section-card>
-        <section-card
-        title="VSWR"
-        description="Different VSWR parameters calculations"
-        ></section-card>
         <section-card
         title="Single Stub"
         description="Impedance Matching - Single Stub"
+        direction="/singlestub"
+        image="stub_mini.svg"
         ></section-card>
-        <section-card
-        title="L-section network"
-        description="Impedance Matching - L-section network"
-        image="rectangular_section.svg" 
-        ></section-card> -->
     </div>
 </template>
 

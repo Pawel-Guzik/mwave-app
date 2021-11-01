@@ -10,17 +10,19 @@ import LoadImpedance from './components/LoadImpedance.vue';
 import LSectionMatchingNetwork from './components/LSectionMatchingNetwork.vue'
 import MenuView from './components/MenuView.vue';
 import ImpedanceTransformation from './components/ImpedanceTransformation.vue'
+import SingleStub from './components/SingleStub.vue'
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-      { path: '/', component: MenuView},
-      { path: '/rectangularwaveguide', component: RectangularWaveguide },
-      { path: '/microstripline', component: MicrostripLine },
-      { path: '/vswrcalculation', component: VswrCalculation },
-      { path: '/loadimpedance', component: LoadImpedance },
-      { path: '/lsection', component: LSectionMatchingNetwork},
-      { path: '/impedancetransformation', component: ImpedanceTransformation},
+      {path: '/', component: MenuView},
+      {path: '/rectangularwaveguide', component: RectangularWaveguide },
+      {path: '/microstripline', component: MicrostripLine },
+      {path: '/vswrcalculation', component: VswrCalculation },
+      {path: '/loadimpedance', component: LoadImpedance },
+      {path: '/lsection', component: LSectionMatchingNetwork},
+      {path: '/impedancetransformation', component: ImpedanceTransformation},
+      {path: '/singlestub', component: SingleStub},
       
     ]
   });

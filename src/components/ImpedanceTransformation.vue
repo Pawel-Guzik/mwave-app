@@ -1,7 +1,7 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back.svg"></router-link>
+      <router-link to="/"><img src="../assets/arrow.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
@@ -12,8 +12,6 @@
           <p> R<sub>L</sub>/Z<sub>0</sub> = <input type="number" v-model.number="R"> Ω </p>
           <p> X<sub>L</sub>/Z<sub>0</sub> = <input type="number" v-model.number="X"> Ω </p>
           <p> λ = <input type="number" v-model.number="lambda"> mm </p>
-
-          <!-- <p> λ = <input type="number" v-model.number="lambda"> mm </p> -->
         </div>
         <div class="inputs-section">
           <p> d = <input type="number" v-model.number="distance"> mm </p>
@@ -117,13 +115,10 @@ function create_error_message(current_message, additional_text) {
 }
 
 function calculate(lambda, R, distance, X){
-    console.log('naura')
     let load_impedance = math.complex(R, X)
-    console.log(load_impedance)
     let tanges_load = Math.tan(2*Math.PI*distance/lambda)
     let tanges_generator = Math.tan(-2*Math.PI*distance/lambda)
     let towards_load = math.divide(math.complex(load_impedance.re, -1*tanges_load+load_impedance.im),math.complex(1+1*load_impedance.im*tanges_load, -1*load_impedance.re*tanges_load))
-    // let denominator = math.complex(1+1*load_impedance.im*tanges_load, -1*load_impedance.re*tanges_load)
     let towards_generator = math.divide(math.complex(load_impedance.re, -1*tanges_generator+load_impedance.im),math.complex(1+1*load_impedance.im*tanges_generator, -1*load_impedance.re*tanges_generator))
     return [towards_load, towards_generator]
 }

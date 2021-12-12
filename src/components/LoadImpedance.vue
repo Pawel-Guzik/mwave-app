@@ -1,7 +1,7 @@
 <template>
     <div class=all-wraper>
         <div class="header-navigation">
-            <router-link to="/"><img src="../assets/back.svg"></router-link>
+            <router-link to="/"><img src="../assets/arrow.svg"></router-link>
         </div>
         <div class="wrapper">
             <div class="image">
@@ -136,8 +136,6 @@ function calculate_load_impedance(swr, lambda, distance) {
     let voltage_wave_angle = current_wave_angle + Math.PI/2
     let current = math.divide(math.complex(swr,-1*Math.tan(current_wave_angle)),math.complex(1,-1*swr*Math.tan(current_wave_angle)))
     let voltage = math.divide(math.complex(swr,-1*Math.tan(voltage_wave_angle)),math.complex(1,-1*swr*Math.tan(voltage_wave_angle)))
-    console.log(current)
-    console.log(voltage)
     return [voltage, current]
 }
 </script>

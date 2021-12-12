@@ -6,7 +6,6 @@
         <div class="card-text">
             <h1> {{ title }} </h1>
             <p> {{ description }} </p>
-            <!-- <button class="button">Calculate</button> -->
             <router-link :to=direction><button class="button" id="calculate"> Calculate </button></router-link>
         </div>
         

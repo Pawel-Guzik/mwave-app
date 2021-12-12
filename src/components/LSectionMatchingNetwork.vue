@@ -1,13 +1,11 @@
-// obsluga bledow
-
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back.svg"></router-link>
+      <router-link to="/"><img src="../assets/arrow.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
-        <img src="../assets/LSection.svg">
+        <img src="../assets/LSection5.svg">
       </div>
       <div class="calculate-section">
 
@@ -23,18 +21,36 @@
         <div class="central-class">
             <div class="output-section">
                 <div class="solution">
-                    <img src="../assets/LS_2.svg" style="margin-bottom: 20px;">
+
+                    <img v-if="this.chosen == 'second' && this.f_e_s == 'L' && this.f_e_r =='L'" src="../assets/k2_LL.svg" style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'second' && this.f_e_s == 'C' && this.f_e_r =='C'" src="../assets/k2_CC.svg" style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'second' && this.f_e_s == 'L' && this.f_e_r =='C'" src="../assets/k2_CL.svg" style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'second' && this.f_e_s == 'C' && this.f_e_r =='L'" src="../assets/k2_LC.svg" style="margin-bottom: 20px;">
+                  
+                    <img v-if="this.chosen == 'first' && this.f_e_s == 'L' && this.f_e_r =='L'" src="../assets/k1_LL.svg"  style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'first' && this.f_e_s == 'C' && this.f_e_r =='C'" src="../assets/k1_CC.svg"  style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'first' && this.f_e_s == 'L' && this.f_e_r =='C'" src="../assets/k1_LC.svg"  style="margin-bottom: 20px;">
+                    <img v-if="this.chosen == 'first' && this.f_e_s == 'C' && this.f_e_r =='L'" src="../assets/k1_CL.svg"  style="margin-bottom: 20px;">
                     <p class="output-text"> X<sub>1</sub> = {{X1}} Ω </p>
                     <p class="output-text"> B<sub>1</sub> = {{B1}} mS </p>
-                    <p class="output-text"> C<sub>p</sub> = {{Cp}} pF </p>
-                    <p class="output-text"> L<sub>s</sub> = {{Ls}} nH </p>
+                    <p class="output-text"> {{f_e_r}}<sub>p</sub> = {{first_rownolegly}}</p>
+                    <p class="output-text"> {{f_e_s}}<sub>s</sub> = {{first_szeregowy}}</p>
                 </div>
                 <div class="solution">
-                    <img src="../assets/LS_1.svg" style="margin-bottom: 18px; margin-top: 3px;">
+
+                    <img v-if="this.chosen == 'second' && this.s_e_s == 'L' && this.s_e_r =='L'" src="../assets/k2_LL.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'second' &&this.s_e_s == 'C' && this.s_e_r =='C'" src="../assets/k2_CC.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'second' &&this.s_e_s == 'L' && this.s_e_r =='C'" src="../assets/k2_CL.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'second' &&this.s_e_s == 'C' && this.s_e_r =='L'" src="../assets/k2_LC.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    
+                    <img v-if="this.chosen == 'first' && this.s_e_s == 'L' && this.s_e_r =='L'" src="../assets/k1_LL.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'first' &&this.s_e_s == 'C' && this.s_e_r =='C'" src="../assets/k1_CC.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'first' &&this.s_e_s == 'L' && this.s_e_r =='C'" src="../assets/k1_LC.svg" style="margin-bottom: 18px; margin-top: 3px;">
+                    <img v-if="this.chosen == 'first' &&this.s_e_s == 'C' && this.s_e_r =='L'" src="../assets/k1_CL.svg" style="margin-bottom: 18px; margin-top: 3px;">
                     <p class="output-text"> X<sub>2</sub> = {{X2}} Ω </p>
                     <p class="output-text"> B<sub>2</sub> = {{B2}} mS </p>
-                    <p class="output-text"> C<sub>s</sub> = {{Cs}} pF </p>
-                    <p class="output-text"> L<sub>p</sub> = {{Lp}} nH </p>
+                    <p class="output-text"> {{s_e_s}}<sub>s</sub> = {{second_szeregowy}} </p>
+                    <p class="output-text"> {{s_e_r}}<sub>p</sub> = {{second_rownolegly}} </p>
                 </div>
             </div>
         </div>
@@ -60,16 +76,19 @@ export default {
         frequency: '',
         messageError: '',
         Zo: '',
-
+        chosen: "first",
         X1: '',
         B1: '',
-        Cp: '',
-        Ls: '',
-
+        first_rownolegly: '',
+        first_szeregowy: '',
+        f_e_r: '',
+        f_e_s: '',
+        s_e_r: '',
+        s_e_s: '',
         X2: '',
         B2: '',
-        Cs: '',
-        Lp: '',
+        second_szeregowy: '',
+        second_rownolegly: '',
 
       };
     },
@@ -88,8 +107,16 @@ export default {
 
         if (this.R >= 0 && this.Zo > 0 && this.frequency > 0 && this.R != ''){
           let result = []
-          result = calculate(this.R, this.X, this.Zo, this.frequency)
+          if (this.R >= this.Zo){
+            this.chosen = "first"
+            result = calculate_first(this.R, this.X, this.Zo, this.frequency)
+          }
+          else {
+            this.chosen = "second"
+            result = calculate_second(this.R, this.X, this.Zo, this.frequency)
+          }
           this.write_otuput(result)
+          
         }
       },
       reset() {
@@ -101,25 +128,68 @@ export default {
 
         this.X1 = ''
         this.B1 = ''
-        this.Cp = ''
-        this.Ls = ''
+        this.first_rownolegly = ''
+        this.first_szeregowy = ''
         this.X2 = ''
         this.B2 = ''
-        this.Cs = ''
-        this.Lp = ''
+        this.second_szeregowy = ''
+        this.second_rownolegly = ''
 
       },
       write_otuput(result) {
+        let first = result[0]
+        let second = result[1]
         let round_val = 1000
-        // [X1, B1, Cp, Ls, X2, B2, Cs, Lp]
-        this.X1 = Math.round(result[0] * round_val)/round_val
-        this.B1 = (Math.round(result[1]*1000 * round_val)/round_val)
-        this.Cp = Math.round(result[2] *1000000000000* round_val)/round_val
-        this.Ls = Math.round(result[3] *1000000000* round_val)/round_val
-        this.X2 = Math.round(result[4] * round_val)/round_val
-        this.B2 = Math.round(result[5]*1000 * round_val)/round_val
-        this.Cs = Math.round(result[6]*1000000000000 * round_val)/round_val
-        this.Lp = Math.round(result[7]*1000000000* round_val)/round_val
+
+        for (let [key, value] of Object.entries(first)) {
+          if (key == 'X1'){
+            this.X1 = Math.round(value * round_val)/round_val
+          }
+          if (key == 'B1') {
+            this.B1 = (Math.round(value*1000 * round_val)/round_val)
+          }
+          if (key == 'Cs') {
+            this.first_szeregowy = String(Math.round(value *1000000000000* round_val)/round_val) + ' pF'
+            this.f_e_s = "C"
+          }
+          if (key == 'Ls') {
+            this.first_szeregowy = String(Math.round(value *1000000000* round_val)/round_val) + ' nH'
+            this.f_e_s = "L"
+          }
+          if (key == 'Cp') {
+            this.first_rownolegly = String(Math.round(value *1000000000000* round_val)/round_val) + ' pF'
+            this.f_e_r = "C"
+          }
+          if (key == 'Lp') {
+            this.first_rownolegly = String(Math.round(value*1000000000* round_val)/round_val) + ' nH'
+            this.f_e_r = "L"
+          }
+        }
+
+        for (const [key, value] of Object.entries(second)) {
+          if (key == 'X2'){
+            this.X2 = Math.round(value * round_val)/round_val
+          }
+          if (key == 'B2') {
+            this.B2 = (Math.round(value*1000 * round_val)/round_val)
+          }
+          if (key == 'Cs') {
+            this.second_szeregowy = String(Math.round(value *1000000000000* round_val)/round_val) + ' pF'
+            this.s_e_s = "C"
+          }
+          if (key == 'Ls') {
+            this.second_szeregowy = String(Math.round(value *1000000000* round_val)/round_val) + ' nH'
+            this.s_e_s = "L"
+          }
+          if (key == 'Cp') {
+            this.second_rownolegly = String(Math.round(value *1000000000000* round_val)/round_val) + ' pF'
+            this.s_e_r = "C"
+          }
+          if (key == 'Lp') {
+            this.second_rownolegly = String(Math.round(value*1000000000* round_val)/round_val) + ' nH'
+            this.s_e_r = "L"
+          }
+        }
       }
     }
 }
@@ -134,7 +204,7 @@ function create_error_message(current_message, additional_text) {
   }
 }
 
-function calculate(R, X, Zo, frequency) {
+function calculate_first(R, X, Zo, frequency) {
   let denominator = R**2 + X**2
   let nominator = X + Math.sqrt(R/Zo)*Math.sqrt(denominator - Zo*R)
   let B1 = nominator/denominator
@@ -146,10 +216,109 @@ function calculate(R, X, Zo, frequency) {
   let Lp = lc_calculate(1/B2, frequency)*-1
   let Cp = lc_calculate(B1, frequency)
   let Cs = lc_calculate(1/X2, frequency)*-1
+  // cp ls - first solution
+  // lp cs - second solution
 
-  return [X1, B1, Cp, Ls, X2, B2, Cs, Lp]
+  let first_solution = {
+    'X1': X1,
+    'B1': B1
+  }
+
+  let second_solution = {
+    'X2': X2,
+    'B2': B2
+  }
+
+  if (Ls < 0) { 
+    Ls = lc_calculate(1/X1, frequency)*-1
+    first_solution['Cs'] = Ls
+  } else {
+    first_solution['Ls'] = Ls
+  }
+
+  if (Cp < 0) {
+    Cp = lc_calculate(1/B1, frequency)*-1
+    first_solution['Lp'] = Cp
+  }else {
+    first_solution['Cp'] = Cp
+  }
+
+
+  if (Cs < 0) {
+    Cs = lc_calculate(X2, frequency)
+    second_solution['Ls'] = Cs
+  } else {
+    second_solution['Cs'] = Cs
+  }
+
+  if (Lp < 0) {
+    Lp = lc_calculate(B2, frequency)
+    second_solution['Cp'] = Lp
+  } else {
+    second_solution['Lp'] = Lp
+  }
+
+
+  return [first_solution, second_solution]
+
 
 }
+function calculate_second(R, X, Zo, frequency) {
+  let X1 = Math.sqrt(R*(Zo-R)) - X
+  let X2 = -Math.sqrt(R*(Zo-R)) - X
+  let B1 = Math.sqrt((Zo-R)/R)/Zo
+  let B2 = -Math.sqrt((Zo-R)/R)/Zo
+  let Ls = lc_calculate(X1, frequency)
+  let Lp = lc_calculate(1/B2, frequency)*-1
+  let Cp = lc_calculate(B1, frequency)
+  let Cs = lc_calculate(1/X2, frequency)*-1
+  // cp ls - first solution
+  // lp cs - second solution
+  let first_solution = {
+    'X1': X1,
+    'B1': B1
+  }
+
+  let second_solution = {
+    'X2': X2,
+    'B2': B2
+  }
+
+  if (Ls < 0) { 
+    Ls = lc_calculate(1/X1, frequency)*-1
+    first_solution['Cs'] = Ls
+  } else {
+    first_solution['Ls'] = Ls
+  }
+
+  if (Cp < 0) {
+    Cp = lc_calculate(1/B1, frequency)*-1
+    first_solution['Lp'] = Cp
+  }else {
+    first_solution['Cp'] = Cp
+  }
+
+
+  if (Cs < 0) {
+    Cs = lc_calculate(X2, frequency)
+    second_solution['Ls'] = Cs
+  } else {
+    second_solution['Cs'] = Cs
+  }
+
+  if (Lp < 0) {
+    Lp = lc_calculate(B2, frequency)
+    second_solution['Cp'] = Lp
+  } else {
+    second_solution['Lp'] = Lp
+  }
+
+
+  return [first_solution, second_solution]
+
+}
+
+
 
 function x_calculation(B, R, X, Zo){
   return 1/B + X*Zo/R - Zo/(B*R)

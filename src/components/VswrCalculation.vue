@@ -1,7 +1,7 @@
 <template>
     <div class="all-wraper">
         <div class="header-navigation">
-            <router-link to="/"><img src="../assets/back.svg"></router-link>
+            <router-link to="/"><img src="../assets/arrow.svg"></router-link>
         </div>
         <div class="wrapper">
             <div class="image">
@@ -157,7 +157,6 @@ export default {
             if (this.checked == '|G|') {
                 this.first_value // g_module
                 this.second_value //g_arg
-                console.log(this.first_value)
                 if (this.second_value == '') {
                     this.second_value = 0
                 }
@@ -287,7 +286,6 @@ export default {
         },
 
         reset(){
-            console.log('reset')
             this.clear_values()
             this.first_value = ''
             this.second_value = ''
@@ -370,7 +368,7 @@ function calculate_on_VSWR(VSWR, arg, Zo) {
     let G = math.divide(1, R)
     let r = math.divide(R, Zo)
     let g = math.divide(G, (1/Zo))
-    console.log(g_complex, R, G, r, g)
+
     return [VSWR, g_module, g_complex, r, g, R, G, arg]
 }
 
@@ -394,7 +392,6 @@ function calculate_on_g_complex(re_g, im_g, Zo) {
     let G = math.divide(1, R)
     let r = math.divide(R, Zo)
     let g = math.divide(G, (1/Zo))
-    console.log(g_complex.toVector())
     let g_arg = (g_complex.toPolar().phi*180/Math.PI) // conversion to degrees
     return [VSWR, g_module, g_complex, r, g, R, G, g_arg]
 }

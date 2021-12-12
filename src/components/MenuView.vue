@@ -26,22 +26,22 @@
           image="load_mini.svg"
         ></section-card>
         <section-card
-        title="L-section network"
-        description="Impedance Matching - L-section network"
-        direction="/lsection"
-        image="LSection.svg"
+          title="L-section network"
+          description="Impedance Matching - L-section network"
+          direction="/lsection"
+          image="LSection.svg"
         ></section-card>
         <section-card
-        title="Impedance Transformation"
-        description="Calculate impedance toward generator or load"
-        direction="/impedancetransformation"
-        image="transformation.svg"
+          title="Impedance Transformation"
+          description="Calculate impedance toward generator or load"
+          direction="/impedancetransformation"
+          image="transformation.svg"
         ></section-card>
         <section-card
-        title="Single Stub"
-        description="Impedance Matching - Single Stub"
-        direction="/singlestub"
-        image="stub_mini.svg"
+          title="Single Stub"
+          description="Impedance Matching - Single Stub"
+          direction="/singlestub"
+          image="stub_mini.svg"
         ></section-card>
     </div>
 </template>

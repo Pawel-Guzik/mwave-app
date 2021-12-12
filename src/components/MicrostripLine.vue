@@ -1,9 +1,7 @@
-// za duze liczby, obsługa błędów
-
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back.svg"></router-link>
+      <router-link to="/"><img src="../assets/arrow.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
@@ -66,7 +64,6 @@ export default {
       calculate() {
         let result = []
         this.messageError = ''
-        console.log(this.section)
         if (this.h <= 0){
             this.messageError = create_error_message(this.messageError, 'H > 0')
         }
@@ -179,14 +176,12 @@ function synthesis(h, frequency, eps_r, Zo){
     let b = (377*Math.PI)/(2*Zo*Math.sqrt(eps_r))
     let wd_1 = (8 * Math.exp(a)) / (Math.exp(2*a) - 2)
     let wd_2 = (2 / Math.PI) * (b - 1 - Math.log(2*b - 1) + ((eps_r - 1) / (2 * eps_r)) * (Math.log(b - 1) + 0.39 - (0.61 / eps_r)))
-    console.log(isNaN(wd_1))
-    console.log(isNaN(wd_2))
     let w1 = wd_1 * h
     let w2 = wd_2 * h
     let eps_eff_1 = (eps_r + 1) / 2 + (eps_r - 1) / (2 * Math.sqrt(1 + 12 * (1 / wd_1)))
     let eps_eff_2 = (eps_r + 1) / 2 + (eps_r - 1) / (2 * Math.sqrt(1 + 12 * (1 / wd_2)))
-    let lambda_1 = (3 * 10 ** 8) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_1))
-    let lambda_2 = (3 * 10 ** 8) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_2))
+    let lambda_1 = (299_792_458) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_1))
+    let lambda_2 = (299_792_458) / (frequency * 10 ** 9 * Math.sqrt(eps_eff_2))
     let correct_width = select_correct_width(w1, w2, Zo, h, frequency, eps_r)
     if (correct_width == w1){
       return [w1, eps_eff_1, lambda_1]
@@ -197,8 +192,6 @@ function synthesis(h, frequency, eps_r, Zo){
 }
 
 function select_correct_width(w1, w2, Zo, h ,frequency, eps_r) {
-  console.log(w1)
-  console.log(w2)
   if (w1 < 0){
     return w2
   }

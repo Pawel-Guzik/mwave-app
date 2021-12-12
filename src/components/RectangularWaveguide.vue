@@ -1,7 +1,7 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back.svg"></router-link>
+      <router-link to="/"><img src="../assets/arrow.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">

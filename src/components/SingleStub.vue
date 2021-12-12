@@ -1,7 +1,7 @@
 <template>
   <div class=all-wraper>
     <div class="header-navigation">
-      <router-link to="/"><img src="../assets/back.svg"></router-link>
+      <router-link to="/"><img src="../assets/arrow.svg"></router-link>
     </div>
     <div class="wrapper">
       <div class="image">
@@ -26,12 +26,6 @@
           <button class="choice-button" v-on:click="shunt_short"> <img src="../assets/shunt_short.svg"> </button>
           <button class="choice-button" v-on:click="shunt_open"> <img src="../assets/shunt_open.svg"> </button>
         </div>
-        <!-- <div class="chosen-option">
-          <img v-if="this.chosen == 'series_open'" src="../assets/series_open.svg">
-          <img v-if="this.chosen == 'series_short'" src="../assets/series_short.svg">
-          <img v-if="this.chosen == 'shunt_short'" src="../assets/shunt_short.svg">
-          <img v-if="this.chosen == 'shunt_open'" src="../assets/shunt_open.svg">
-        </div> -->
         <div class="output-section">
           <p style="padding-top:20px; padding-bottom:10px"> SOLUTION 1 </p>
           <div class="solution">
@@ -177,7 +171,6 @@ function calculate_t(X, R, Zo){
   }else{
     let nominator = X + Math.sqrt(R*((Zo-R)**2 + X**2)/Zo)
     let nominator_2 = X - Math.sqrt(R * ((Zo - R) ** 2 + X ** 2) / Zo)
-    console.log('noms', nominator, nominator_2)
     let denominator = R - Zo
     t1 = nominator/denominator
     t2 = nominator_2/denominator
@@ -202,7 +195,6 @@ function calculate_l_shunt(B, Zo){
 function calculate_shunt(X, R, Zo){
   let t = calculate_t(X, R, Zo)
   
-  console.log('t',t)
   let d1 = calculate_d_lambda(t[0])
   let d2 = calculate_d_lambda(t[1])
   let B1 = calculate_B(X, R, Zo, t[0])
